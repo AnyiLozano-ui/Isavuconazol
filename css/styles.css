@@ -1,0 +1,202 @@
+@import './general.css';
+
+.book {
+	align-items: center;
+	display: flex;
+	height: 90%;
+	justify-content: center;
+	width: 90%;
+}
+
+.aspect {
+	padding-bottom: 70%;
+	position: relative;
+	width: 100%;
+}
+
+.aspect-inner {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.flipbook {
+	height: 100%;
+	transition: margin-left 0.25s ease-out;
+	width: 100%;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.flipbook .page {
+	height: 100%;
+	width: 100%;
+}
+
+.flipbook .page img {
+	max-width: 100%;
+	height: 90%;
+}
+
+/* portada 1 */
+.incidencia {
+	position: absolute;
+	width: 50%;
+	left: 56.3%;
+	top: 42.2%;
+}
+
+.incidencia img {
+	width: 100%;
+	height: 100%;
+}
+
+.cancer {
+	position: absolute;
+	width: 48.5%;
+	left: 56.3%;
+	top: 48.5%;
+}
+
+.cancer img {
+	width: 100%;
+	height: 100%;
+}
+
+.avanza {
+	position: absolute;
+	width: 48.5%;
+	left: 56.3%;
+	top: 57.9%;
+}
+
+.avanza img {
+	width: 100%;
+	height: 100%;
+}
+
+.acerca {
+	position: absolute;
+	width: 48.5%;
+	left: 56.3%;
+	top: 64.1%;
+}
+
+.acerca img {
+	width: 100%;
+	height: 100%;
+}
+
+/* ====== BOTONES PASTILLA ANIMADOS ====== */
+.btn-pill {
+	cursor: pointer;
+	pointer-events: auto;
+	isolation: isolate; /* para que el brillo no se “escape” */
+	/* Animación de entrada escalonada */
+	--stagger: 0s;
+	animation: pill-in 0.55s ease-out both;
+	animation-delay: var(--stagger);
+	transform-origin: center;
+}
+
+/* Imagen base con sombra suave */
+.btn-pill img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+	will-change: transform, filter;
+}
+
+/* Flotado sutil en reposo (puedes quitarlo si no lo quieres) */
+.btn-pill img {
+	animation: floaty 4s ease-in-out infinite;
+}
+
+/* Glow + leve lift al hover */
+.btn-pill:hover img {
+	transform: translateY(-2px) scale(1.01);
+}
+
+/* Efecto "press" al click */
+.btn-pill:active img {
+	transform: translateY(0) scale(0.985);
+	filter: brightness(0.95);
+}
+
+/* Brillo “shimmer” que cruza la pastilla al hover */
+.btn-pill::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: 999px;
+	background: linear-gradient(
+		120deg,
+		transparent 30%,
+		rgba(255, 255, 255, 0.55) 50%,
+		transparent 70%
+	);
+	transform: translateX(-140%);
+	transition: transform 0.7s ease;
+	mix-blend-mode: screen; /* combina bonito con el degradado del PNG */
+	pointer-events: none;
+	z-index: 1;
+}
+.btn-pill:hover::after {
+	transform: translateX(140%);
+}
+
+/* ====== Keyframes ====== */
+@keyframes floaty {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-3px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+@keyframes pill-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+/* ====== Stagger (entrada uno tras otro) ====== */
+.incidencia {
+	--stagger: 0.05s;
+}
+.cancer {
+	--stagger: 0.15s;
+}
+.avanza {
+	--stagger: 0.25s;
+}
+.acerca {
+	--stagger: 0.35s;
+}
+
+/* navegacion */
+.adelante {
+	position: absolute;
+	width: 6%;
+    height: 8%;
+    top: 86%;
+    left: 94.3%;
+	z-index: 10;
+	cursor: pointer;
+	pointer-events: auto !important;
+}

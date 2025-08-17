@@ -1,0 +1,170 @@
+@import './general.css';
+
+.adelante1 {
+	position: absolute;
+	width: 6%;
+    height: 8%;
+    top: 86%;
+    left: 94.3%;
+	z-index: 10;
+	cursor: pointer;
+	pointer-events: auto !important;
+}
+
+.atras1 {
+	position: absolute;
+	width: 6%;
+    height: 8%;
+    top: 86%;
+    left: 0%;
+	z-index: 10;
+	cursor: pointer;
+	pointer-events: auto !important;
+}
+
+/* ===== Donut animado (sin mover su posición) ===== */
+.circulo1{
+    position:absolute;
+    width: 85.8%;
+    left: 10.4%;
+    top: 19.2%;
+    aspect-ratio:1/1;                 /* asegura proporción */
+    --ring-color:#ff5bb4;             /* rosa del borde */
+    --thk: 22px;      
+    height: 55.4%;                /* grosor aprox. del aro para el barrido */
+  }
+  
+  /* Imagen base */
+  .circulo1 img{
+    width:100%;
+    height:100%;
+    display:block;
+    transform-origin:50% 50%;
+    animation: sway 6s ease-in-out infinite; /* oscilación mínima */
+  }
+  
+  /* 1) Barrido de luz alrededor del aro externo */
+  .circulo1::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    /* spotlight que gira: conic-gradient crea un “destello” */
+    background:
+      conic-gradient(from 0turn,
+        transparent 0turn .80turn,
+        rgba(255,255,255,.55) .85turn,
+        transparent .92turn 1turn);
+    /* Máscara para que solo se vea en el aro (donut) */
+    -webkit-mask:
+      radial-gradient(farthest-side, transparent calc(50% - var(--thk) - 1px),
+                                     #000 calc(50% - var(--thk)),
+                                     #000 calc(50% + 0px),
+                                     transparent calc(50% + 1px));
+            mask:
+      radial-gradient(farthest-side, transparent calc(50% - var(--thk) - 1px),
+                                     #000 calc(50% - var(--thk)),
+                                     #000 calc(50% + 0px),
+                                     transparent calc(50% + 1px));
+    mix-blend-mode: screen;
+    pointer-events:none;
+    animation: sweep 8s linear infinite;
+  }
+  
+  /* 2) Pulso en el centro (onda expansiva sutil) */
+  .circulo1::after{
+    content:"";
+    position:absolute; inset:16%;
+    border-radius:50%;
+    background: radial-gradient(circle,
+                rgba(255,91,180,.28) 0%,
+                rgba(255,91,180,.18) 45%,
+                rgba(255,91,180,0) 70%);
+    transform: scale(.85);
+    opacity:.0;
+    pointer-events:none;
+    animation: pulse 3.6s ease-in-out infinite;
+  }
+  
+  /* Oscilación mínima (no mueve la posición) */
+  @keyframes sway{
+    0%,100%{ transform: rotate(-2deg); }
+    50%    { transform: rotate(2deg);  }
+  }
+  
+  /* Barrido que da toda la vuelta */
+  @keyframes sweep{
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Pulso del centro */
+  @keyframes pulse{
+    0%   { opacity:0;   transform: scale(.85); }
+    20%  { opacity:.45; transform: scale(1.05); }
+    60%  { opacity:.15; transform: scale(1.20); }
+    100% { opacity:0;   transform: scale(1.30); }
+  }
+  
+  /* Accesibilidad: respeta usuarios con reducción de movimiento */
+  @media (prefers-reduced-motion: reduce){
+    .circulo1 img,
+    .circulo1::before,
+    .circulo1::after{ animation:none !important; }
+  }
+  
+  .mapa {
+    position: absolute;
+    width: 18.3%;
+    left: 18.6%;
+    top: 82.8%;
+    aspect-ratio: 1/1;
+    overflow: visible;
+  }
+  
+  /* 🌍 Mundo con giro lento */
+  .mapa img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: world-spin 40s linear infinite;
+  }
+  
+  /* 🎀 Brillo en el lazo (simulado con overlay radial) */
+  .mapa::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 60% 50%, 
+                rgba(255,160,205,0.45) 0%, 
+                rgba(255,160,205,0.15) 35%, 
+                transparent 70%);
+    opacity: 0;
+    animation: glow 6s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  
+  @keyframes world-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  
+  @keyframes glow {
+    0%,100% { opacity: 0; transform: scale(1); }
+    50%     { opacity: 1; transform: scale(1.1); }
+  }
+  
+
+  .cinta {
+    position: absolute;
+    width: 23.5%;
+    left: 14.9%;
+    top: 83.5%;
+    z-index: 1;
+  }
+  
+  /* 🌍 Mundo con giro lento */
+  .cinta img {
+    width: 100%;
+    height: 100%;
+  }

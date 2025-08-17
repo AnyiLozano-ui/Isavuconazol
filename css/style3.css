@@ -1,0 +1,143 @@
+@import './general.css';
+
+.adelante3 {
+	position: absolute;
+	width: 6%;
+	height: 8%;
+	top: 86%;
+	left: 94.3%;
+	z-index: 10;
+	cursor: pointer;
+	pointer-events: auto !important;
+}
+
+.atras3 {
+	position: absolute;
+	width: 6%;
+	height: 8%;
+	top: 86%;
+	left: 0%;
+	z-index: 10;
+	cursor: pointer;
+	pointer-events: auto !important;
+}
+
+.grama {
+	position: absolute;
+	width: 19.8%;
+	left: 65.6%;
+	top: 19.9%;
+}
+
+/* Imagen base */
+.grama img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	transform-origin: top center; /* punto de giro arriba */
+	animation: swing 6s ease-in-out infinite;
+	will-change: transform;
+}
+
+/* 🌊 Balanceo lento */
+@keyframes swing {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(2.5deg);
+	}
+	50% {
+		transform: rotate(-2.5deg);
+	}
+	75% {
+		transform: rotate(2deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.libro1 {
+    position: absolute;
+    width: 34.9%;
+    left: 11.5%;
+    top: 45.6%;
+    animation: breatheWind 7s ease-in-out infinite;
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+  
+  /* Imagen base */
+  .libro1 img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  /* ✨ Animación innovadora: respira y se mece con el viento */
+  @keyframes breatheWind {
+    0% {
+      transform: scale(1) rotate(0deg) translateX(0);
+    }
+    25% {
+      transform: scale(1.03) rotate(-2deg) translateX(-5px);
+    }
+    50% {
+      transform: scale(1) rotate(0deg) translateX(0);
+    }
+    75% {
+      transform: scale(1.03) rotate(2deg) translateX(5px);
+    }
+    100% {
+      transform: scale(1) rotate(0deg) translateX(0);
+    }
+  }
+  
+
+  .libro2 {
+    position: absolute;
+    width: 32.3%;
+    left: 55.7%;
+    top: 45.6%;
+    animation: floatShine 8s ease-in-out infinite;
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+  
+  /* Imagen base */
+  .libro2 img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: shineEffect 4s linear infinite;
+  }
+  
+  /* ✨ Movimiento flotante vertical */
+  @keyframes floatShine {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* 🌟 Destello que recorre la imagen */
+  @keyframes shineEffect {
+    0% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 200, 255, 0.7));
+    }
+    100% {
+      filter: brightness(1);
+    }
+  }
+  

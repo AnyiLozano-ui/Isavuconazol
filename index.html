@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Isavuconazol y eribulina</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+		<link rel="stylesheet" href="./css/styles.css" />
+		<link rel="stylesheet" href="./css/style1.css" />
+		<link rel="stylesheet" href="./css/styles2.css" />
+		<link rel="stylesheet" href="./css/style3.css" />
+		<link rel="stylesheet" href="./css/styles4.css" />
+		<link rel="stylesheet" href="./css/styles5.css" />
+		<!-- Scripts -->
+		<script
+			type="text/javascript"
+			src="https://eml.com.co/RevistaDigital_GuiaParaElCuidado_DeLa_Piel/js/jquery-3.2.1.min.js"></script>
+		<script src="https://eml.com.co/RevistaDigital_GuiaParaElCuidado_DeLa_Piel/js/turnjs.min.js"></script>
+		<!-- Styles -->
+		<style>
+			:root {
+				--img-w: 2250;
+				--img-h: 3000;
+				--ratio: calc(var(--img-w) / var(--img-h)); /* 0.75 */
+			}
+
+			body {
+				background: #ccc;
+				margin: 0;
+				width: 100vw;
+				display: flex;
+				justify-content: center;
+				overflow: hidden;
+			}
+
+			#magazine {
+				height: 100dvh;
+			}
+
+			#magazine .turn-page {
+				background-color: #ccc;
+				background-size: contain;
+			}
+
+			#magazine .turn-page,
+			.page {
+				background-repeat: no-repeat !important;
+				background-position: center center !important;
+				background-size: contain !important; /* <- clave para no cortar */
+				filter: none !important;
+				pointer-events: none !important;
+				image-rendering: -webkit-optimize-contrast !important;
+			}
+
+			.page-wrapper {
+				width: calc((100vh * 2250) / 3000) !important;
+				-webkit-perspective: 2000px;
+				-moz-perspective: 2000px;
+				-ms-perspective: 2000px;
+				perspective: 2000px;
+			}
+
+			.page-wrapper,
+			.page {
+				aspect-ratio: 2250 / 3000; /* mantiene la relación exacta */
+				height: 100dvh !important; /* llena en altura */
+				width: calc(
+					100dvh * var(--ratio)
+				) !important; /* ancho según proporción */
+			}
+
+			.page {
+				background-size: calc((100vh * 2250) / 3000), 99vh;
+				filter: none !important;
+				pointer-events: none !important;
+				image-rendering: -webkit-optimize-contrast !important;
+				width: calc((100vh * 2250) / 3000) !important;
+				height: 100vh !important;
+			}
+
+			.single-width {
+				width: calc(100dvh * var(--ratio)) !important;
+				margin-left: 0 !important;
+			}
+			.double-width {
+				width: calc(2 * 100dvh * var(--ratio)) !important;
+			}
+
+			.double-width {
+				width: calc(((100vh * 2250) / 3000) * 2) !important;
+			}
+
+			/* -------- Landscape (horizontal): usa alto como base -------- */
+			@media (orientation: landscape) {
+				#magazine {
+					height: 100dvh;
+				} /* llena alto del viewport */
+
+				.page-wrapper,
+				.page,
+				.single-width {
+					aspect-ratio: 2250 / 3000;
+					height: 100dvh !important;
+					width: calc(100dvh * var(--ratio)) !important;
+				}
+
+				.double-width {
+					width: calc(2 * 100dvh * var(--ratio)) !important;
+				}
+			}
+
+			/* -------- Portrait (vertical): usa ancho como base y centra -------- */
+			@media (orientation: portrait) {
+				html,
+				body {
+					height: 100dvh; /* asegurar que el body mida toda la pantalla */
+					display: flex;
+					justify-content: center; /* centro horizontal */
+					align-items: center; /* centro vertical */
+					margin: 0;
+				}
+
+				#magazine {
+					height: auto !important; /* quitar alto forzado */
+					width: 100vw !important; /* usar todo el ancho */
+					display: block;
+				}
+
+				.page-wrapper,
+				.page,
+				.single-width {
+					aspect-ratio: 2250 / 3000; /* mantiene proporción */
+					width: 100vw !important; /* llena ancho */
+					height: calc(
+						100vw / (2250 / 3000)
+					) !important; /* alto proporcional */
+				}
+
+				.double-width {
+					width: 100vw !important;
+					height: calc(2 * (100vw / (2250 / 3000))) !important;
+				}
+			}
+
+			@media (max-width: 500px) {
+				.page-wrapper,
+				.page {
+					aspect-ratio: 2250 / 3000;
+					width: 100vw !important; /* llena en ancho */
+					height: calc(
+						100vw / var(--ratio)
+					) !important; /* altura según proporción */
+					transform: translateY(0%); /* evita desplazamientos raros */
+				}
+
+				.single-width {
+					width: 100vw !important;
+				}
+				.double-width {
+					width: 100vw !important; /* evita desbordes; turn.js se encarga del paso */
+					height: calc(
+						2 * (100vw / var(--ratio))
+					) !important; /* si usas doble alto */
+				}
+
+				/* Evita que la “esquina” capte eventos sobrepuesta */
+				#magazine .turn-page-corner {
+					pointer-events: none !important;
+				}
+			}
+
+			@media (max-width: 400px) {
+				.page-wrapper {
+					transform: translateY(0%);
+				}
+			}
+
+			.boton {
+				position: absolute;
+				width: 10%;
+				height: 4%;
+				top: 94%;
+				left: 11%;
+				z-index: 1;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.boton1 {
+				position: absolute;
+				width: 5%;
+				height: 3%;
+				top: 94.7%;
+				left: 18.3%;
+				z-index: 1;
+				cursor: pointer;
+				pointer-events: auto !important;
+				background: green;
+				border-radius: 70px;
+			}
+			.boton2 {
+				position: absolute;
+				width: 5%;
+				height: 3%;
+				top: 94.6%;
+				left: 11.8%;
+				z-index: 1;
+				cursor: pointer;
+				border-radius: 70px;
+				background: red;
+				pointer-events: auto !important;
+			}
+
+			.mano {
+				position: absolute;
+				width: 100%;
+				/* height: 5%; */
+				top: 44.7%;
+				left: 0%;
+			}
+			.mano img {
+				width: 100%;
+				height: 100%;
+			}
+
+			/* bolas azules */
+			.ola1 {
+				position: absolute;
+				width: 24.6%;
+				top: 23.1%;
+				left: 15.1%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.ola1 img {
+				width: 100%;
+				height: 100%;
+				animation: hamaca 7s ease-in-out infinite; /* más lento */
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+
+			.ola2 {
+				position: absolute;
+				width: 24.8%;
+				top: 35.2%;
+				left: 62%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.ola2 img {
+				width: 100%;
+				height: 100%;
+				animation: hamaca 6s ease-in-out infinite;
+			}
+
+			.ola3 {
+				position: absolute;
+				width: 24.8%;
+				top: 49.8%;
+				left: 14.9%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.ola3 img {
+				width: 100%;
+				height: 100%;
+				animation: hamaca 8s ease-in-out infinite;
+			}
+
+			.ola4 {
+				position: absolute;
+				width: 24.8%;
+				top: 62%;
+				left: 61.9%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.ola4 img {
+				width: 100%;
+				height: 100%;
+				animation: hamaca 7s ease-in-out infinite;
+			}
+
+			.ola5 {
+				position: absolute;
+				width: 24.8%;
+				top: 74.5%;
+				left: 14.9%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+			.ola5 img {
+				width: 100%;
+				height: 100%;
+				animation: hamaca 9s ease-in-out infinite; /* aún más lenta */
+			}
+
+			/* Animación tipo hamaca */
+			@keyframes hamaca {
+				0% {
+					transform: rotate(0deg);
+					transform-origin: top center;
+				}
+				25% {
+					transform: rotate(3deg);
+					transform-origin: top center;
+				}
+				50% {
+					transform: rotate(0deg);
+					transform-origin: top center;
+				}
+				75% {
+					transform: rotate(-3deg);
+					transform-origin: top center;
+				}
+				100% {
+					transform: rotate(0deg);
+					transform-origin: top center;
+				}
+			}
+
+			/* ====== BOTONES ====== */
+			.bott1,
+			.bott2,
+			.bott3,
+			.bott4 {
+				position: absolute;
+				width: 38.4%;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+
+			.bott1 {
+				top: 82.8%;
+				left: 11.7%;
+			}
+			.bott2 {
+				top: 82.8%;
+				left: 50.4%;
+			}
+			.bott3 {
+				top: 90.2%;
+				left: 11.6%;
+			}
+			.bott4 {
+				top: 90.2%;
+				left: 50.1%;
+			}
+
+			.bott1 img,
+			.bott2 img,
+			.bott3 img,
+			.bott4 img {
+				width: 100%;
+				height: 100%;
+				cursor: pointer;
+				pointer-events: auto !important;
+
+				/* Animación base: respiración suave */
+				animation: pulseGlow 3s ease-in-out infinite;
+				transition: transform 0.3s ease, filter 0.3s ease;
+			}
+
+			/* Hover: zoom + giro + brillo */
+			.bott1 img:hover,
+			.bott2 img:hover,
+			.bott3 img:hover,
+			.bott4 img:hover {
+				transform: scale(1.05) rotate(-1deg);
+				filter: brightness(1.3) saturate(1.2);
+			}
+
+			/* Click: rebote rápido */
+			.bott1 img:active,
+			.bott2 img:active,
+			.bott3 img:active,
+			.bott4 img:active {
+				transform: scale(0.95) rotate(0deg);
+				filter: brightness(0.9);
+				transition: transform 0.1s ease;
+			}
+
+			/* Keyframes: efecto "respirar" */
+			@keyframes pulseGlow {
+				0% {
+					transform: scale(1);
+					filter: brightness(1) saturate(1);
+				}
+				50% {
+					transform: scale(1.03);
+					filter: brightness(1.2) saturate(1.1);
+				}
+				100% {
+					transform: scale(1);
+					filter: brightness(1) saturate(1);
+				}
+			}
+
+			.bloqueo-esquinas {
+				background-color: red;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 100px;
+				height: 100dvb;
+				z-index: 1000;
+			}
+
+			.modal {
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+
+			.modal img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.modal .modal-adelante {
+				width: 10%;
+				height: 7%;
+				position: absolute;
+				bottom: 50%;
+				left: 84.5%;
+				z-index: 10;
+				pointer-events: auto !important;
+				cursor: pointer;
+			}
+
+			.modal1 {
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+
+			.modal1 img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.modal1 .modal-adelante1 {
+				width: 10%;
+				height: 7%;
+				position: absolute;
+				bottom: 50%;
+				left: 84.5%;
+				z-index: 10;
+				pointer-events: auto !important;
+				cursor: pointer;
+			}
+
+
+			.subpop {
+				position: absolute;
+				width: 10%;
+				height: 9%;
+				top: 68%;
+				left: 84%;
+				z-index: 1;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+
+			.subpop1 {
+				position: absolute;
+				width: 10%;
+				height: 9%;
+				top: 68%;
+				left: 6%;
+				z-index: 1;
+				cursor: pointer;
+				pointer-events: auto !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="magazine" class="single-width">
+			<!-- portada 1 -->
+			<div class="" style="background-image: url(images/portada.jpg)">
+				<div class="incidencia btn-pill">
+					<img src="./images/boton1.png" alt="" />
+				</div>
+				<div class="cancer btn-pill">
+					<img src="./images/boton2.png" alt="" />
+				</div>
+				<div class="avanza btn-pill">
+					<img src="./images/boton3.png" alt="" />
+				</div>
+				<div class="acerca btn-pill">
+					<img src="./images/boton4.png" alt="" />
+				</div>
+
+				<!-- adelante  -->
+				<div class="adelante"></div>
+			</div>
+
+			<!-- portada 2 -->
+			<div style="background-image: url(images/image1.jpg)">
+				<div class="circulo1">
+					<img src="./images/circulo2.png" alt="" />
+				</div>
+				<div class="mapa">
+					<img src="./images/mapa.png" alt="" />
+				</div>
+				<div class="cinta">
+					<img src="./images/citna.png" alt="" />
+				</div>
+				<!-- navegacion next previous -->
+				<div class="adelante1"></div>
+				<div class="atras1"></div>
+			</div>
+
+			<!-- portada 3 -->
+			<div style="background-image: url(images/image2.jpg)">
+				<div class="radar">
+					<img src="./images/rodar.png" alt="" />
+					<span class="ring2"></span>
+				</div>
+
+				<div class="cuadro1">
+					<img src="./images/cuadro1.png" alt="" />
+				</div>
+
+				<!-- navegacion -->
+				<div class="adelante2"></div>
+				<div class="atras2"></div>
+			</div>
+
+			<!-- portada 4 -->
+			<div style="background-image: url(images/portada3.jpg)">
+				<div class="grama">
+					<img src="./images/grama.png" alt="" />
+				</div>
+
+				<div class="libro1">
+					<img src="./images/texto1.png" alt="" />
+				</div>
+				<div class="libro2">
+					<img src="./images/texto2.png" alt="" />
+				</div>
+
+				<!-- navegacion -->
+				<div class="adelante3"></div>
+				<div class="atras3"></div>
+			</div>
+
+			<!-- portada 5 -->
+			<div style="background-image: url(images/portada4.jpg)">
+				<div class="rodar">
+					<div class="ola1">
+						<img src="./images/bola1.png" alt="" />
+					</div>
+					<div class="ola2">
+						<img src="./images/bola2.png" alt="" />
+					</div>
+					<div class="ola3">
+						<img src="./images/bola3.png" alt="" />
+					</div>
+					<div class="ola4">
+						<img src="./images/bola4.png" alt="" />
+					</div>
+					<div class="ola5">
+						<img src="./images/bola5.png" alt="" />
+					</div>
+				</div>
+				<div class="modal">
+					<img src="./images/image3.jpg" alt="" />
+					<div class="modal-adelante"></div>
+				</div>
+
+				<!-- navegacion -->
+				<div class="adelante4"></div>
+				<div class="atras4"></div>
+			</div>
+
+			<!-- portada 6 -->
+			<div style="background-image: url(images/portada6.jpg)">
+				<div class="rodar">
+					<div class="bott1">
+						<img src="./images/botton1.png" alt="" />
+					</div>
+					<div class="bott2">
+						<img src="./images/botton2.png" alt="" />
+					</div>
+					<div class="bott3">
+						<img src="./images/botton3.png" alt="" />
+					</div>
+					<div class="bott4">
+						<img src="./images/botton4.png" alt="" />
+					</div>
+					<!-- navegacion -->
+					<div class="adelante5"></div>
+					<div class="atras5"></div>
+				</div>
+				<div class="modal1" style="display: none;">
+					<img src="./images/image3.jpg" alt="" />
+					<div class="modal-adelante1"></div>
+					<div class="subpop1"></div>
+					<div class="subpop"></div>
+				</div>
+			</div>
+
+			<!-- portada 7 -->
+			<div style="background-image: url(images/portada7.jpg)">
+				<!-- navegacion -->
+				<div class="adelante6"></div>
+				<div class="atras6"></div>
+			</div>
+
+			<!-- portada 8 -->
+			<div style="background-image: url(images/imagen21.jpg)">
+				<!-- navegacion -->
+				<div class="atras7"></div>
+
+				<div class="logofooter">
+					<img src="./images/logofooter.png" alt="">
+				</div>
+			</div>
+		</div>
+		<audio
+			id="sonido-boton"
+			src="./images/siguiente-pagina-139418.mp3"></audio>
+		<script src="./js/custom-functions.js"></script>
+		<script src="./js/magazine.js"></script>
+	</body>
+</html>
