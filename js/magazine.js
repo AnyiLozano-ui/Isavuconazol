@@ -1,23 +1,23 @@
 const dataImages = {
-	'modal-1': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/image3.jpg' }],
-	'modal-2': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/image7.jpg' }],
-	'modal-3': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/imagen10.jpg' }],
-	'modal-4': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/imagen12.jpg' }],
-	'modal-5': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/imagen14.jpg' }],
-	'modal-6': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/imagen19.jpg' }],
-	'modal-7': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/imagen20.jpg' }],
+	'modal-1': [{ image: './images/image3.jpg' }],
+	'modal-2': [{ image: './images/image7.jpg' }],
+	'modal-3': [{ image: './images/imagen10.jpg' }],
+	'modal-4': [{ image: './images/imagen12.jpg' }],
+	'modal-5': [{ image: './images/imagen14.jpg' }],
+	'modal-6': [{ image: './images/imagen19.jpg' }],
+	'modal-7': [{ image: './images/imagen20.jpg' }],
 }
 
 // modal 2
 const dataImages1 = {
-	'modal-1': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/bott1.jpg' }],
-	'modal-2': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/bott2.jpg' }],
-	'modal-3': [{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/bott3.jpg' }],
+	'modal-1': [{ image: './images/bott1.jpg' }],
+	'modal-2': [{ image: './images/bott2.jpg' }],
+	'modal-3': [{ image: './images/bott3.jpg' }],
 	'modal-4': [
-		{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/bott4.jpg' },
-		{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/subpop1.jpg' },
-		{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/subpop2.jpg' },
-		{ image: 'https://eml.com.co/presentacion_interactiva_enfermeras_halaven/images/subpop3.jpg' },
+		{ image: './images/bott4.jpg' },
+		{ image: './images/subpop1.jpg' },
+		{ image: './images/subpop2.jpg' },
+		{ image: './images/subpop3.jpg' },
 	],
 }
 
